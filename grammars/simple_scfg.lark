@@ -1,0 +1,12 @@
+sentence: NP VP -> NP VP
+
+VP: V NP -> NP V
+
+NP: "I" -> "watashi wa"
+    | "the box" -> "hako wo"
+
+V: "open" -> "akemasu"
+
+%import common.WS
+%ignore WS
+

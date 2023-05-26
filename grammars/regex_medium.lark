@@ -1,0 +1,53 @@
+%import common.INT
+%import common.WS
+%ignore WS
+
+
+number : INT
+literal : CHARACTER_CLASS | CONST | STRING
+delimiter : STRING
+literal_set : literal | "or(" literal "," literal_set ")"
+
+CONST : "constant(" STRING ")"
+CHARACTER_CLASS : "<number>" | "<letter>" | "<lowercase>" | "<uppercase>" | "<special>"
+STRING : /<.*?>/
+
+regex : intersection | concatenation | seperation 
+
+intersection : constraint | "and(" intersection "," intersection ")"
+constraint : "startwith(" expr ")"
+    | "endwith(" expr ")"
+    | "contain(" expr ")"
+    | "not(startwith(" expr "))"
+    | "not(endwith(" expr "))"
+    | "not(contain(" expr "))"
+    | "repeat(<any>," number ")" 
+    | "repeatatleast(<any>," number ")"
+    | "repeatrange(<any>," number "," number ")"
+    | "repeatatleast(" literal_set ",1)"
+    | "and(startwith(" literal ")," "not(startwith(" literal ")))"
+    | "and(endwith(" literal "),not(endwith(" literal ")))"
+    | "not(contain(concat(" literal ",notcontain(" literal "))))"
+    | "not(contain(concat(notcontain(" literal ")," literal ")))"
+
+concatenation : component 
+    | "optional(" concatenation ")"
+    | "concat(" concatenation "," concatenation ")"
+component: expr
+    | "repeat(" expr "," number ")"
+    | "repeatatleast(" expr "," number ")"
+    | "repeatrange(" expr "," number "," number ")"
+    | "or(repeat(" literal "," number "),repeat(" literal "," number "))"
+    | "or(repeatatleast(" literal "," number "),repeatatleast(" literal "," number "))"
+    | "or(repeatrange(" literal "," number "," number "),repeatrange(" literal "," number "," number "))"
+
+seperation : "concat(" segment ",concat(" delimiter ",concat(" segment ",concat(" delimiter "," segment "))))"
+    | "concat(" segment ",star(concat(" delimiter "," segment ")))"
+segment : intersection | concatenation
+
+expr : "contain(" expr ")"
+    | "concat(" expr "," expr ")"
+    | "or(" expr "," expr ")"
+    | "repeat(" expr "," number ")"
+    | "notcontain(" literal ")"
+    | literal

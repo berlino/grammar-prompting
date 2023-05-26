@@ -1,0 +1,43 @@
+smiles: atom (chain | branch)*
+chain: (bond? (atom | ring_closure))+
+
+branch: "(" bond? smiles+ ")"
+
+atom: organic_symbol
+    | aromatic_symbol
+    | atom_spec
+    | wildcard
+    | group_symbol
+
+bond: "-"
+    | "="
+    | "#"
+    | "$"
+    | ":"
+    | "/"
+    | "\\"
+    | "."
+
+atom_spec: "[" isotope? ("se" | "as" | aromatic_symbol | element_symbol | wildcard) chiral_class? h_count? charge? class? "]"
+
+organic_symbol: "Br" | "Cl" | "N" | "O" | "P" | "S" | "F" | "I" | "B" | "C"
+
+aromatic_symbol: "b" | "c" | "n" | "o" | "p" | "s"
+
+group_symbol.1: "OC" | "CO" | "N"
+
+wildcard: "*"
+
+element_symbol: ("A".."Z") ("a".."z")?
+
+ring_closure: "%" ("1".."9") ("0".."9")? | "0".."9"
+
+chiral_class: "@" ("@" | "TH" ("1".."2") | "AL" ("1".."2") | "SP" ("1".."3") | "TB" (("1".."9") ("0".."9")? | "20" | "2") | "OH" (("1".."9") ("0".."9")? | "20" | "2" | "30" | "3" | "4".."9"))?
+
+charge: "-" ("-" | "0" | "1" ("0".."5")? | "2".."9")? | "+" ("+" | "0" | "1" ("0".."5")? | "2".."9")?
+
+h_count: "H" ("0".."9")?
+
+class: ":" ("0".."9")+
+
+isotope: ("1".."9") ("0".."9")? ("0".."9")?

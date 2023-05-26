@@ -1,0 +1,56 @@
+%import common.INT
+%import common.WS
+%ignore WS
+
+regex : intersection | concatenation | seperation 
+
+intersection : constraint | "and(" intersection "," intersection ")"
+constraint : basic_constraint | length_constraint | macro_constraint
+basic_constraint : "not(" basic_constraint ")"
+    | "startwith(" constraint_expr ")"
+    | "endwith(" constraint_expr ")"
+    | "contain(" constraint_expr ")"
+length_constraint : "repeat(<any>," number ")" 
+    | "repeatatleast(<any>," number ")"
+    | "repeatrange(<any>," number "," number ")"
+macro_constraint : consistof_constraint 
+    | adversative_startwith_constraint
+    | adversative_endwith_constraint 
+    | conditional_contain_constraint
+consistof_constraint : "repeatatleast(" literal_set ",1)"
+adversative_startwith_constraint : "and(startwith(" literal ")," "not(startwith(" literal ")))"
+adversative_endwith_constraint : "and(endwith(" literal "),not(endwith(" literal ")))"
+conditional_contain_constraint : "not(contain(concat(" literal ",notcontain(" literal "))))"
+    | "not(contain(concat(notcontain(" literal ")," literal ")))"
+constraint_expr : literal_set 
+    | min_constraint_expr
+    | "concat(" min_constraint_expr "," min_constraint_expr ")"
+min_constraint_expr : literal | "repeat(" literal "," number ")" | "or(" min_constraint_expr "," min_constraint_expr ")"
+
+concatenation : component | "concat(" concatenation "," concatenation ")"
+component : "optional(" concatenation ")"
+    | basic_component 
+    | macro_component
+basic_component : component_expr
+    | "repeat(" component_expr "," number ")"
+    | "repeatatleast(" component_expr "," number ")"
+    | "repeatrange(" component_expr "," number "," number ")"
+macro_component : "or(repeat(" literal "," number "),repeat(" literal "," number "))"
+    | "or(repeatatleast(" literal "," number "),repeatatleast(" literal "," number "))"
+    | "or(repeatrange(" literal "," number "," number "),repeatrange(" literal "," number "," number "))"
+component_expr : literal | literal_set | "notcontain(" literal ")"
+
+seperation : "concat(" segment ",concat(" delimiter ",concat(" segment ",concat(" delimiter "," segment "))))"
+    | "concat(" segment ",star(concat(" delimiter "," segment ")))"
+segment : intersection | concatenation
+
+literal_set : literal | "or(" literal "," literal_set ")"
+
+number : INT
+literal : CHARACTER_CLASS | CONST | STRING
+delimiter : STRING
+
+
+CONST : "constant(" STRING ")"
+CHARACTER_CLASS : "<number>" | "<letter>" | "<lowercase>" | "<uppercase>" | "<special>"
+STRING : /<.*?>/

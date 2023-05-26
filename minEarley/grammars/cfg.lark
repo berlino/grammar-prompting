@@ -1,0 +1,24 @@
+// taken from https://www3.nd.edu/~dchiang/teaching/nlp/2019/notes/chapter12v1.pdf
+// see https://www.cs.jhu.edu/~jason/465/hw-parse/treebank-notation.pdf for PTB's terminal and non-terminals
+// design choice: 1) it would be good if the rhs of non-terminals are just non-terminals or preterminals, but this will lead to unary rules such as `noun_phrase : noun`.  This arrangement is good for grammar writing as well as implementation. Lark will assign a pre-terminal symbol anyway to make sure the rhs does not contain terminals. 
+
+sentence : noun_phrase verb_phrase
+
+noun_phrase : DETERMINER NOUN
+    | NOUN NOUN_PLURAL
+    | "time" | "fruit"
+
+verb_phrase : VERB_PRESENT noun_phrase 
+    | verb_phrase preposition_phrase
+    | "flies"
+
+preposition_phrase : IN noun_phrase
+
+DETERMINER : "a" | "an"
+NOUN: "time" | "fruit" | "arrow" | "banana"
+NOUN_PLURAL: "flies"
+VERB_PRESENT: "like"
+IN: "like"
+
+WS: /[ \t\f\r\n]/+
+%ignore WS
