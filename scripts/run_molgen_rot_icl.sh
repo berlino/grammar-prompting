@@ -2,7 +2,7 @@ export PALM_API_KEY=""
 
 python neural_lark/main_mol.py \
     --seed 3 \
-    --dataset arylates \
+    --dataset acrylates \
     --add_rule_instruction_flag \
     --num_samples 100 \
     --engine azure/gpt-35-turbo-0301 \

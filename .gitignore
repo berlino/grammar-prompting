@@ -1,0 +1,15 @@
+.DS_Store
+wandb/
+log/
+data/
+gen_data/
+*.egg-info/
+*.pyc
+__pycache__
+.mypy_cache
+.vscode
+
+third_party/retro_star/
+third_party/GCN/model_gin
+
+llm_cache/
