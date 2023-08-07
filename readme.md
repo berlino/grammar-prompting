@@ -1,3 +1,7 @@
+# Grammar Prompting for Domain-Specific Language Generation with Large Language Models
+
+This repo contains the code and data that we used in the paper [Grammar Prompting for Domain-Specific Language Generation with Large Language Models](https://arxiv.org/abs/2305.19234). 
+
 ## Setup
 
 Basic Setup
