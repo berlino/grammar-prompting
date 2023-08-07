@@ -191,7 +191,7 @@ class GPT(LargeLanguageModel):
                            prompt_info=prompt_info,
                            other_info=raw_response.copy())
 
-    def evaluate_gpt_completion(self, prefix: str, suffix:str, average=True) -> float:
+    def evaluate_completion(self, prefix: str, suffix:str, average=True) -> float:
         while True:
             try:
                 return self._evaluate_gpt_completion(prefix, suffix, average)
@@ -203,7 +203,7 @@ class GPT(LargeLanguageModel):
                     logger.warning(str(runtime_error))
                     logger.info("retrying...") 
 
-    def _evaluate_gpt_completion(self, 
+    def _evaluate_completion(self, 
                                 prefix: str, 
                                 suffix: str, 
                                 average:bool) -> float:
@@ -226,7 +226,7 @@ class GPT(LargeLanguageModel):
         except ValueError:
             # find the closest token
             suffix_start_token_id = min(range(len(offsets)), key=lambda i: abs(offsets[i] - len(prefix)))
-            logging.warning("suffix_start_token_id not found, using closest token")
+            logger.warning("suffix_start_token_id not found, using closest token")
 
         # corner case: prefix is empty
         if suffix_start_token_id == 0: 

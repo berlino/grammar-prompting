@@ -11,7 +11,6 @@ setup(
         exclude=["*_test.py", "test_*.py", "tests"]
     ),
     install_requires=[
-        "pytest~=5.4.1",
         "tqdm~=4.64.1",
         "wandb>=0.9.4",
         "openai>=0.26.5",
@@ -22,7 +21,9 @@ setup(
         "google.generativeai~=0.1.0rc3",
         "tiktoken~=0.4.0",
         "nltk~=3.8.1",
+        "exrex~=0.11.0",
         "transformers~=4.26.1",
         "overrides~=7.3.1",
+        "lark~=1.1.7"
     ],
 )

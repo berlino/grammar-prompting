@@ -392,7 +392,7 @@ if __name__ == "__main__":
         test_accuracy = evaluate_programs(test_prediction_counters, test_examples)
         # test_grammar_accuracy = evaluate_grammars(test_grammar_counters, test_examples, global_parser)
         test_grammar_accuracy = 0.0
-        logger.info(f"test accuracy {test_accuracy}, grammar accuracy {test_grammar_accuracy}")
+        logger.info(f"test accuracy {test_accuracy}")
 
     ## log to wandb
     wandb.log({

@@ -1,11 +1,7 @@
-# few-shot
-# 16/16 for codex/gpt
-# 8/8 for quickrun
+# engines {azure/code-davinci-002, azure/gpt-35-turbo-0301, openai/gpt-4, google/models/text-bison-001}
 
-# splits {indomain, comp}
-
-# engines {azure/code-davinci-002, azure/gpt-35-turbo-0301, google/models/text-bison-001, openai/gpt-4}
-
+export OPENAI_API_KEY=""
+export AZURE_API_KEY=""
 export PALM_API_KEY=""
 
 python neural_lark/main.py \
@@ -14,7 +10,7 @@ python neural_lark/main.py \
     --split_name comp \
     --num_shot 8 \
     --batch_size 8 \
-    --engine google/models/text-bison-001 \
+    --engine openai/gpt-4 \
     --temperature 0.0 \
     --max_tokens 640 \
     --prompt_mode std \

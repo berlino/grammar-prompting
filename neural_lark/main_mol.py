@@ -14,7 +14,7 @@ from dataclasses import dataclass
 import numpy as np
 from minEarley.parser import EarleyParser
 
-import neural_lark.llm_interface as llm_interface
+from neural_lark.llm_interface import setup_llm 
 from neural_lark.train_utils import logger, setup_logger_file
 from neural_lark.flags import FLAGS, parse_args
 from neural_lark.lark_utils import lark2bnf, bnf2lark, decorate_grammar, extract_rule_stat
@@ -353,14 +353,7 @@ if __name__ == "__main__":
     wandb.run.log_code("./neural_lark")
 
     # 1.1 setup llm
-    split_point = FLAGS.engine.index("/")
-    platform, engine = FLAGS.engine[:split_point], FLAGS.engine[split_point+1:]
-    if platform == "azure":
-        llm = llm_interface.GPT(engine)
-    elif platform == "google":
-        llm = llm_interface.PaLM(engine)
-    else:
-        raise NotImplementedError(f"platform {platform} not supported")
+    llm = setup_llm(FLAGS.engine)
 
     # 2. load dataset and parser
     examples = load_dataset(config)

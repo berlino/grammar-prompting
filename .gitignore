@@ -13,3 +13,4 @@ third_party/retro_star/
 third_party/GCN/model_gin
 
 llm_cache/
+standalone/
