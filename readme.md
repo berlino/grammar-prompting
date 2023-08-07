@@ -5,14 +5,13 @@ Basic Setup
 ```bash
 conda create --name grammar-prompting
 pip install -e .
-pip install git+https://github.com/yuce/pyswip@master#egg=pyswip
 ```
 
 ### LLM setup
 
  In prompting scripts, you can use the following strings to specify which LLM to use: `azure/code-davinci-002, azure/gpt-35-turbo-0301, openai/gpt-4, google/models/text-bison-001`. You should also provide corresponding API keys in the scripts. Our original experiments are done via GPT APIs provided by Azure, from which you can still get access to Codex (WARNING: super expensive). 
 
-By default, the scoring function for constrained decoding is based on sentence BERT. If your setup has access to Codex, you can comment out these lines to activate Codex-based scoring. 
+By default, the scoring function for constrained decoding is based on sentence BERT. If your setup has access to Codex, you can comment out [these lines](https://github.com/berlino/grammar-prompting/blob/cf22412bfab62ee0ad07f479d2ef92f1831aabb9/neural_lark/earley.py#L77) to activate Codex-based scoring. 
 
 ### Setup for molecule generation experiments
 
