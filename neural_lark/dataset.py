@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from minEarley.parser import EarleyParser
 from neural_lark.flags import FLAGS
 from neural_lark.lark_utils import * 
-from neural_lark.fol_utils import *
 from third_party.structg.eval import check_equiv
 
 @dataclass
@@ -204,7 +203,6 @@ def load_sem_parser(config):
         grammar_file = "grammars/geo.lark"
         global_parser = EarleyParser.open(grammar_file, start='query', keep_all_tokens=True)
     elif config["dataset"] == "smc":
-        # grammar_file, start_symbol = "grammars/lispress_full_1.lark", "list"
         grammar_file, start_symbol = "grammars/lispress_full_3.lark", "call"
         global_parser = EarleyParser.open(grammar_file, start=start_symbol, keep_all_tokens=True)
     elif config["dataset"] == "mtop":
