@@ -1,0 +1,1 @@
+The folder is a mixture of original geoquery data, Jonathans' data and Pete's data.

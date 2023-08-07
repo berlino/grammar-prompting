@@ -1,0 +1,4 @@
+virginia -> stateid ( 'virginia' )
+mississippi -> stateid ( 'mississippi' )
+cities in -> city ( loc_2 ( * ) )
+surrounding -> next_to_2 ( * )
