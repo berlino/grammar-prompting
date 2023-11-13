@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from minEarley.parser import EarleyParser
 from neural_lark.flags import FLAGS
 from neural_lark.lark_utils import * 
-from third_party.structg.eval import check_equiv
+# from third_party.structg.eval import check_equiv
 
 @dataclass
 class Example:
